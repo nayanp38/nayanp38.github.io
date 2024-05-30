@@ -1,0 +1,228 @@
+@font-face {
+    font-family: League;
+    src: url("../fonts/League.otf");
+}
+@font-face {
+    font-family: Finity;
+    src: url("../fonts/Finity.ttf");
+}
+@font-face {
+    font-family: Geometric;
+    src: url("../fonts/Rodriguez_Geometric Paper.ttf");
+}
+@font-face {
+    font-family: Calm;
+    src: url("../fonts/KeepCalm-Medium.ttf");
+}
+@font-face {
+    font-family: Minomu;
+    src: url("../fonts/MinomuBlack-BWVKV.otf");
+}
+html, body {
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    width: 100%; /* Ensure the width is 100% of the viewport */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+body {
+    font-family: Candara, sans-serif;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+.star {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 2px;
+    height: 2px;
+    z-index: 1;
+}
+.shooting-star {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    z-index: 1;
+}
+html {
+    scroll-behavior: smooth;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+header {
+    background: url('../img/mountain_with_me.jpg') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    padding-top: 15px;
+    min-height: 50px;
+    border-bottom: #77ab59 3px solid;
+    text-align: center;
+    font-family: Finity;
+    font-weight: bold;
+    z-index: 2;
+}
+header h1{
+    font-weight: normal;
+    padding: 5px 0;
+    font-size: 50px;
+    font-family: Finity;
+    color: white;
+    text-align: left;
+    margin: 0 0 0 30px;
+}
+#title {
+    font-weight: normal;
+    padding: 5px 0;
+    font-size: 50px;
+    font-family: Finity;
+    color: white;
+    text-align: left;
+    margin: 0;
+}
+h2 {
+    font-family: Finity;
+    font-size: 30px;
+}
+header a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+header ul {
+    padding: 0;
+    list-style: none;
+}
+header ul li {
+    display: inline;
+    padding: 0 20px;
+}
+.bio, .projects {
+    padding: 20px;
+    background: #fff;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.projects-heading {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.projects-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+.project-box {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px); /* Three items per row */
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+.project-box:hover {
+    transform: scale(1.05);
+}
+.project-box img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.project-box a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    background: #f4f4f4;
+}
+.project-box a:hover {
+    background: #77ab59;
+    color: #fff;
+}
+@media (max-width: 768px) {
+    .project-box {
+      width: calc(50% - 20px); /* Two items per row on medium screens */
+    }
+}
+@media (max-width: 480px) {
+    .project-box {
+      width: 100%; /* One item per row on small screens */
+    }
+}
+.title {
+    border-style: solid;
+}
+.chatbot-info, footer {
+    margin-left: 20px;
+}
+.chatbot-info {
+    display: flex;
+    flex-direction: column;
+}
+.chatbot-info img {
+    width: 40%;
+    height: auto;
+}
+.info {
+    display: flex;
+    flex-direction: row;
+}
+.info p {
+    width: 70%;
+}
+h1 {
+    font-family: Minomu;
+    font-size: 100px;
+    font-weight: normal;
+    text-align: center;
+}
+#info2 p, #info4 p {
+    padding-left: 15px;
+    padding-top: 20px;
+}
+#name {
+    text-align: center;
+}
+#logo {
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    font-size: 50px;
+}
+footer h2 {
+    font-size: 60px;
+}
+footer a {
+    font-family: Finity;
+    text-decoration: none;
+    color: #333333;
+}
+footer img {
+    text-align: center;
+    width: 90%;
+    height: auto;
+}

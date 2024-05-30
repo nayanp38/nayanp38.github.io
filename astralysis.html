@@ -1,10 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refugee Resettlement Chatbot</title>
+<link rel="stylesheet" href="css/styles-astralysis.css">
 </head>
 <body>
 
+<header>
+    <h1><a href="index.html" id="title">Nayan Patel</a></h1>
+</header>
+<section id="name">
+    <img src="img/logo_6b.png" id="logo">
+</section>
+<section class="chatbot-info">
+    <div id="info1" class="info">
+        <div id="content">
+            <h2>Purpose</h2>
+            <p style="width: 100%;">An AI-powered online tool to classify asteroids and find their composition. Designed to forward the field of asteroid mining to move away from current harmful mining practices on Earth. </p>
+        </div>
+        <img src="img/astralysis_ui.png">
+    </div>
+    <div id="info2" class="info">
+        <img src="img/spectra.png">
+        <div>
+            <p class="align">Uses the following data from each asteroid as input:</p>
+            <ul class="align">
+                <li>VIS-NIR Spectrum</li>
+                <li>Diameter</li>
+                <li>Albedo</li>
+                <li>Absolute Magnitude</li>
+            </ul>
+        </div>
+
+    </div>
+    <div id="info3" class="info">
+        <p>Conducts a wavelet transform of each spectrum to better analyze the data.</p>
+        <img src="img/wavelet.png">
+    </div>
+    <div id="info4" class="info">
+        <img src="img/synthesis.png">
+        <p>Easily expandable to new asteroid data.</p>
+    </div>
+</section>
+
+<footer>
+    <h2>Learn more! </h2>
+    <img src="img/Nayan_Patel_ASTRALYSIS_Poster-1.png">
+</footer>
+
+<script>
+    var numStars = 100; // Adjust as needed
+    const bottom_offset = 20;
+    const header_offset = 50;
+    for (var i = 0; i < numStars; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * window.innerWidth + 'px'; // Random horizontal position within window width
+        star.style.top = Math.random() * (window.innerHeight - bottom_offset) + 'px'; // Random vertical position within window height
+        document.body.appendChild(star);
+    }
+
+    // Generate initial shooting stars
+
+    var numShootingStars = 10; // Adjust as needed
+        for (var i = 0; i < numShootingStars; i++) {
+            createShootingStar();
+        }
+    function generateShootingStars() {
+        var numShootingStars = 10; // Adjust as needed
+        for (var i = 0; i < numShootingStars; i++) {
+            createShootingStar();
+        }
+    }
+
+    function createShootingStar() {
+        var star = document.createElement('div');
+        star.className = 'shooting-star';
+        var startX, startY;
+        // Randomly select starting position
+        if (Math.random() < 0.5) {
+            startX = Math.random() * window.innerWidth;
+            startY = 0;
+        } else {
+            startX = Math.random() * window.innerWidth;
+            startY = window.innerHeight - bottom_offset;
+        }
+        star.style.left = startX + 'px';
+        star.style.top = startY + 'px';
+        star.style.opacity = '0'; // Set initial opacity to 0
+        document.body.appendChild(star);
+
+        // Set random animation duration and delay
+        var animationDuration = Math.random() * 4 + 3; // Duration between 1 and 5 seconds
+        var animationDelay = Math.random()* 10; // Delay between 0 and 10 seconds
+
+        // Fade in, move across the screen, and fade out
+        var endX = Math.random() * (window.innerWidth/2);
+        var endY = Math.random() * (window.innerHeight - bottom_offset)/2;
+        star.animate([
+            { opacity: 0, transform: 'translate(0, 0)' },
+            { opacity: 1, transform: 'translate(' + (endX - startX) + 'px, ' + (endY - startY) + 'px)' },
+            { opacity: 0, transform: 'translate(' + (2*(endX - startX)) + 'px, ' + (2*(endY - startY)) + 'px)' }
+        ], {
+            duration: animationDuration * 1000,
+            delay: animationDelay * 1000,
+            easing: 'linear',
+            fill: 'forwards'
+        }).onfinish = function() {
+            star.remove(); // Remove the shooting star from the DOM after animation is complete
+        };
+    }
+
+    setInterval(generateShootingStars, 5000); // Adjust interval as needed
+
+</script>
 </body>
 </html>
