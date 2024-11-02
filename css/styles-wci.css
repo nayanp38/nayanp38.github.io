@@ -121,11 +121,6 @@ header ul li {
 .project-box:hover {
     transform: scale(1.05);
 }
-.project-box img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-}
 .project-box a {
     display: block;
     padding: 10px;
@@ -158,9 +153,10 @@ header ul li {
     display: flex;
     flex-direction: column;
 }
-.chatbot-info img {
-    width: 40%;
+img {
+    width: 30%;
     height: auto;
+    padding: 15px;
 }
 .info {
     display: flex;
@@ -196,4 +192,8 @@ footer a {
     font-family: Finity;
     text-decoration: none;
     color: #333333;
+}
+.gif img {
+    width: auto;
+    height: 50px;
 }
