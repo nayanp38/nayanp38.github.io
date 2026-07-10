@@ -575,6 +575,9 @@ section{position:relative;border-bottom:1px solid var(--line);padding:76px 0}
 .tag{color:var(--cyan);font-size:11px;text-transform:uppercase}
 .card h3{margin-top:8px;font-family:var(--display);font-size:19px;font-weight:650;line-height:1.2;letter-spacing:0}
 .card p{margin-top:12px;color:var(--muted);font-size:14px}
+.card ul{display:grid;gap:7px;margin-top:14px;list-style:none}
+.card li{position:relative;padding-left:16px;color:var(--muted);font-size:14px}
+.card li::before{content:"";position:absolute;left:0;top:.75em;width:7px;height:1px;background:var(--cyan)}
 .stack{margin-top:16px;color:var(--dim);font-family:var(--mono);font-size:11px}
 
 .project-shell{
@@ -606,11 +609,21 @@ section{position:relative;border-bottom:1px solid var(--line);padding:76px 0}
 .focus-panel h3{margin-top:14px;font-family:var(--display);font-size:24px;letter-spacing:0;line-height:1.12}
 .focus-panel p{margin-top:12px;color:var(--muted)}
 .focus-stack{margin-top:18px;color:var(--cyan);font-family:var(--mono);font-size:11px}
-.bars{display:grid;gap:12px;margin-top:24px}
-.bar{display:grid;gap:6px}
-.bar-top{display:flex;justify-content:space-between;color:var(--dim);font-family:var(--mono);font-size:10px;text-transform:uppercase}
-.bar-track{height:7px;background:rgba(255,255,255,.07);overflow:hidden}
-.bar-fill{height:100%;width:var(--value);background:linear-gradient(90deg,var(--cyan),var(--green));box-shadow:0 0 18px rgba(111,211,232,.35)}
+
+/* ---------- AWARDS ---------- */
+.awards{border:1px solid var(--line)}
+.award{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:16px;
+  align-items:baseline;
+  padding:14px 20px;
+  border-bottom:1px solid var(--line);
+  background:rgba(16,22,26,.86);
+}
+.award:last-child{border-bottom:none}
+.award .name{font-size:14px}
+.award .note{font-family:var(--mono);font-size:11px;color:var(--dim);text-align:right}
 
 /* ---------- SKILLS ---------- */
 .skill-groups{
@@ -759,8 +772,8 @@ footer{padding:34px 0 52px}
     <div class="nav-links" aria-label="Primary navigation">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
-      <a href="#research">Research</a>
       <a href="#projects">Projects</a>
+      <a href="#awards">Awards</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </div>
@@ -781,7 +794,7 @@ footer{padding:34px 0 52px}
       </div>
 
       <div class="hero-links">
-        <a class="btn primary" href="mailto:nayanp@seas.upenn.edu">Email</a>
+        <a class="btn primary" href="mailto:nayanp@engineering.upenn.edu">Email</a>
         <a class="btn" href="https://www.linkedin.com/in/nayanpatel38/" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="https://github.com/nayanp38" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="#projects">View Work</a>
@@ -827,6 +840,7 @@ footer{padding:34px 0 52px}
         <p>I'm Nayan, a student at UPenn studying AI and Finance. My work deals with a combination of conducting research, software development, and entrepreneurship via venture capital.</p>
         <p>At Relay, I work on open-world and embodied reasoning models for vision-based products. At Cofounders Capital, I source and evaluate seed-stage B2B software companies, as well as build AI tools for the investment team.</p>
         <p>My research background spans Near-Earth Asteroid classification, satellite-image models for 5G planning, and RefuGPT, a multilingual assistant for refugee resettlement guidance.</p>
+        <p>Outside of work and school, I love to surf, play golf, and watch football (go Panthers!)</p>
       </div>
     </div>
   </div>
@@ -844,7 +858,7 @@ footer{padding:34px 0 52px}
       <div class="row reveal">
         <div class="when">JUN 2026 - PRESENT</div>
         <div>
-          <h3>Software Engineering Intern</h3>
+          <h3>ML Engineering Intern</h3>
           <div class="org">Relay</div>
           <ul>
             <li>Building and training open-world and embodied reasoning models for the next generation of vision-based Relay products.</li>
@@ -909,62 +923,35 @@ footer{padding:34px 0 52px}
   </div>
 </section>
 
-<section id="research">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="sec-label">// 03</div>
-        <h2 class="sec-title">Research & Publications</h2>
-      </div>
-      <p class="section-note">Scientific machine learning work with noisy signals, small data regimes, and careful evaluation.</p>
-    </div>
-    <div class="cards">
-      <article class="card reveal">
-        <div class="tag">Publication - Submitted</div>
-        <h3>Asteroid Classification with Convolutional Neural Networks</h3>
-        <p>Patel, N., et al. Planetary Science Journal. 1D CNNs on Bus-DeMeo reflectance spectra for Near-Earth Asteroid taxonomy.</p>
-        <div class="stack">PYTORCH / SPECTRAL DATA / CNN</div>
-      </article>
-      <article class="card reveal">
-        <div class="tag">Conference Presentations</div>
-        <h3>AAS & IEEE ICKG</h3>
-        <p>Presented asteroid-classification research at the American Astronomical Society and the IEEE International Conference on Knowledge Graphs.</p>
-        <div class="stack">ML FOR SCIENCE / KNOWLEDGE GRAPHS</div>
-      </article>
-    </div>
-  </div>
-</section>
-
 <section id="projects">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="sec-label">// 04</div>
+        <div class="sec-label">// 03</div>
         <h2 class="sec-title">Selected Systems</h2>
       </div>
-      <p class="section-note">Four build threads spanning vision, language, scientific modeling, and venture operations.</p>
     </div>
     <div class="project-shell">
       <div class="cards project-grid">
-        <article class="card project-card reveal" tabindex="0" data-title="Analog Gauge Reading Pipeline" data-copy="A tiered computer-vision pipeline that moves from motion detection to open-vocabulary detection, VLM judging, and state-machine reliability checks." data-stack="YOLO-WORLD / VLMS / DINOV2 / DOCKER" data-build="86" data-depth="82">
+        <article class="card project-card reveal" tabindex="0" data-title="Analog Gauge Reading Pipeline" data-copy="A tiered computer-vision pipeline that moves from motion detection to open-vocabulary detection, VLM judging, and state-machine reliability checks." data-stack="YOLO-WORLD / VLMS / DINOV2 / DOCKER">
           <div class="tag">Computer Vision</div>
           <h3>Analog Gauge Reading Pipeline</h3>
-          <p>Industrial gauge reading with motion detection, open-vocabulary detection, VLM judging, and state-machine fallbacks.</p>
-          <div class="stack">YOLO-WORLD / VLMs / DINOv2 / DOCKER</div>
+          <p>Industrial gauge reading with motion detection, OCR, VLM judging, and Hough transforms.</p>
+          <div class="stack">YOLO-WORLD / OCR / DINOv2 / DOCKER</div>
         </article>
-        <article class="card project-card reveal" tabindex="0" data-title="RefuGPT" data-copy="A multilingual resettlement assistant using intent classification, retrieval-augmented generation, and localization for real-world nonprofit deployment." data-stack="RAG / NLP / MULTILINGUAL AI" data-build="91" data-depth="78">
+        <article class="card project-card reveal" tabindex="0" data-title="RefuGPT" data-copy="A multilingual resettlement assistant using intent classification, retrieval-augmented generation, and localization for real-world nonprofit deployment." data-stack="RAG / NLP / MULTILINGUAL AI">
           <div class="tag">NLP / Applied AI</div>
           <h3>RefuGPT</h3>
           <p>Multilingual assistant for refugee resettlement guidance, deployed nationally through Refugee Assist.</p>
           <div class="stack">RAG / NLP / MULTILINGUAL</div>
         </article>
-        <article class="card project-card reveal" tabindex="0" data-title="Near-Earth Asteroid Classifier" data-copy="A supervised classifier for asteroid taxonomy using reflectance spectra, orbital elements, MITHNEOS expansion, and Gaia DR3 integration." data-stack="1D CNN / GAIA DR3 / SSL PRETRAINING" data-build="80" data-depth="94">
+        <article class="card project-card reveal" tabindex="0" data-title="Near-Earth Asteroid Classifier" data-copy="A supervised classifier for asteroid taxonomy using reflectance spectra, orbital elements, MITHNEOS expansion, and Gaia DR3 integration." data-stack="1D CNN / GAIA DR3 / SSL PRETRAINING">
           <div class="tag">ML for Science</div>
           <h3>Near-Earth Asteroid Classifier</h3>
           <p>Supervised classification of NEAs from reflectance spectra and orbital elements with expanded scientific datasets.</p>
           <div class="stack">1D CNN / GAIA DR3 / SSL PRETRAINING</div>
         </article>
-        <article class="card project-card reveal" tabindex="0" data-title="Portfolio Reporting Automation" data-copy="A venture portfolio reporting workflow built on Google Workspace, Apps Script, and LLM APIs to reduce manual finance operations." data-stack="APPS SCRIPT / SHEETS / LLM API" data-build="74" data-depth="70">
+        <article class="card project-card reveal" tabindex="0" data-title="Portfolio Reporting Automation" data-copy="A venture portfolio reporting workflow built on Google Workspace, Apps Script, and LLM APIs to reduce manual finance operations." data-stack="APPS SCRIPT / SHEETS / LLM API">
           <div class="tag">Internal Tooling</div>
           <h3>Portfolio Reporting Automation</h3>
           <p>Automated reporting system for venture portfolio companies across spreadsheets, Apps Script, and LLM APIs.</p>
@@ -976,17 +963,26 @@ footer{padding:34px 0 52px}
         <h3 id="focus-title">Analog Gauge Reading Pipeline</h3>
         <p id="focus-copy">A tiered computer-vision pipeline that moves from motion detection to open-vocabulary detection, VLM judging, and state-machine reliability checks.</p>
         <div class="focus-stack" id="focus-stack">YOLO-WORLD / VLMS / DINOV2 / DOCKER</div>
-        <div class="bars" aria-hidden="true">
-          <div class="bar">
-            <div class="bar-top"><span>Build Intensity</span><span id="build-score">86</span></div>
-            <div class="bar-track"><div class="bar-fill" id="build-bar" style="--value:86%"></div></div>
-          </div>
-          <div class="bar">
-            <div class="bar-top"><span>Research Depth</span><span id="depth-score">82</span></div>
-            <div class="bar-track"><div class="bar-fill" id="depth-bar" style="--value:82%"></div></div>
-          </div>
-        </div>
       </aside>
+    </div>
+  </div>
+</section>
+
+<section id="awards">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="sec-label">// 04</div>
+        <h2 class="sec-title">Awards</h2>
+      </div>
+    </div>
+    <div class="awards">
+      <div class="award reveal"><div class="name">Regeneron Science Talent Search Scholar</div><div class="note"></div></div>
+      <div class="award reveal"><div class="name">United Nations 79th General Assembly Youth Parliament — Innovation Award</div><div class="note"></div></div>
+      <div class="award reveal"><div class="name">Bryan Cameron Impact Scholarship Finalist</div><div class="note"></div></div>
+      <div class="award reveal"><div class="name">Davidson Fellows Scholarship Semifinalist</div><div class="note"></div></div>
+      <div class="award reveal"><div class="name">First Place, NC Science &amp; Engineering Fair</div><div class="note"></div></div>
+      <div class="award reveal"><div class="name">National Merit Finalist · AP Scholar with Distinction · SAT 1590</div><div class="note"></div></div>
     </div>
   </div>
 </section>
@@ -998,7 +994,6 @@ footer{padding:34px 0 52px}
         <div class="sec-label">// 05</div>
         <h2 class="sec-title">Technical Matrix</h2>
       </div>
-      <p class="section-note">Tools grouped by how they show up in actual work: modeling, infrastructure, analysis, and diligence.</p>
     </div>
     <div class="skill-groups">
       <div class="skill-group reveal">
@@ -1036,19 +1031,18 @@ footer{padding:34px 0 52px}
         <div class="sec-label">// 06</div>
         <h2 class="sec-title">Contact</h2>
       </div>
-      <p class="section-note">Best for SWE, ML research, technical VC, quant, and applied AI conversations.</p>
     </div>
     <div class="contact-shell">
       <div class="reveal">
         <p class="contact-copy">I am always happy to compare notes on computer vision systems, research ideas, startup diligence, and roles where technical depth meets business judgment.</p>
         <div class="contact-actions">
-          <a class="btn primary" href="mailto:nayanp@seas.upenn.edu">Start Email</a>
-          <button class="btn" type="button" data-copy="nayanp@seas.upenn.edu">Copy Email</button>
+          <a class="btn primary" href="mailto:nayanp@engineering.upenn.edu">Start Email</a>
+          <button class="btn" type="button" data-copy="nayanp@engineering.upenn.edu">Copy Email</button>
           <span id="copy-status" aria-live="polite"></span>
         </div>
       </div>
       <div class="contact-list reveal">
-        <div><span class="k">Email</span><a href="mailto:nayanp@seas.upenn.edu">nayanp@seas.upenn.edu</a></div>
+        <div><span class="k">Email</span><a href="mailto:nayanp@engineering.upenn.edu">nayanp@engineering.upenn.edu</a></div>
         <div><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/nayanpatel38/" target="_blank" rel="noopener">linkedin.com/in/nayanpatel38</a></div>
         <div><span class="k">GitHub</span><a href="https://github.com/nayanp38" target="_blank" rel="noopener">github.com/nayanp38</a></div>
         <div><span class="k">Phone</span><span>917.757.6632</span></div>
@@ -1483,19 +1477,11 @@ footer{padding:34px 0 52px}
   var focusTitle=document.getElementById("focus-title");
   var focusCopy=document.getElementById("focus-copy");
   var focusStack=document.getElementById("focus-stack");
-  var buildScore=document.getElementById("build-score");
-  var depthScore=document.getElementById("depth-score");
-  var buildBar=document.getElementById("build-bar");
-  var depthBar=document.getElementById("depth-bar");
   function setProjectFocus(card){
     if(!card || !focusTitle)return;
     focusTitle.textContent=card.dataset.title;
     focusCopy.textContent=card.dataset.copy;
     focusStack.textContent=card.dataset.stack;
-    buildScore.textContent=card.dataset.build;
-    depthScore.textContent=card.dataset.depth;
-    buildBar.style.setProperty("--value",card.dataset.build+"%");
-    depthBar.style.setProperty("--value",card.dataset.depth+"%");
   }
   document.querySelectorAll(".project-card").forEach(function(card){
     card.addEventListener("mouseenter",function(){setProjectFocus(card);});
