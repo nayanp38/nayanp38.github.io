@@ -79,7 +79,7 @@ button{font:inherit}
   opacity:.62;
 }
 .wrap{width:min(1120px,calc(100% - 48px));margin:0 auto;position:relative;z-index:1}
-.eyebrow,.sec-label,.meta,.tag,.when,.nav-name,.nav-links a,.chip,.btn,.terminal-stream,.contact-list,.identity-top,.ticker span,.panel-top,.metric .k,.focus-k,.footer-note{
+.eyebrow,.sec-label,.meta,.tag,.when,.nav-name,.nav-links a,.chip,.btn,.terminal-stream,.contact-list,.identity-top,.panel-top,.metric .k,.focus-k,.footer-note{
   font-family:var(--mono);
   letter-spacing:0;
 }
@@ -162,35 +162,12 @@ header{position:relative;border-bottom:1px solid var(--line)}
   line-height:.98;
   letter-spacing:0;
 }
+.hero-name-accent{color:var(--cyan)}
 .hero-sub{
   max-width:650px;
   margin-top:22px;
   color:var(--muted);
   font-size:17px;
-}
-.rotator-line{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:10px;
-  margin-top:24px;
-  color:var(--dim);
-  font-family:var(--mono);
-  font-size:13px;
-}
-.rotator-shell{
-  min-width:180px;
-  color:var(--text);
-}
-#hero-rotator::after{
-  content:"";
-  display:inline-block;
-  width:7px;
-  height:1em;
-  margin-left:3px;
-  background:var(--cyan);
-  vertical-align:-2px;
-  animation:blink .85s steps(2,end) infinite;
 }
 .hero-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .btn{
@@ -221,7 +198,7 @@ header{position:relative;border-bottom:1px solid var(--line)}
 }
 .telemetry{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:1fr;
   margin-top:34px;
   border:1px solid var(--line-strong);
   background:rgba(16,22,26,.7);
@@ -350,22 +327,20 @@ header{position:relative;border-bottom:1px solid var(--line)}
 }
 .repo-label{
   position:absolute;
+  display:block;
   z-index:3;
-  max-width:42%;
   overflow:hidden;
   text-overflow:ellipsis;
   color:var(--muted);
   font-family:var(--mono);
   font-size:10px;
-  line-height:1;
+  line-height:12px;
   text-decoration:none;
   white-space:nowrap;
-  transform:translateY(-50%);
   transition:color .12s ease,text-shadow .12s ease,border-color .12s ease;
 }
-.repo-label-left{left:4%;padding-right:6px}
+.repo-label-left{padding-right:6px}
 .repo-label-right{
-  right:4%;
   text-align:right;
   padding-left:6px;
 }
@@ -403,31 +378,6 @@ header{position:relative;border-bottom:1px solid var(--line)}
 }
 .terminal-stream span:first-child{color:var(--cyan)}
 .terminal-stream span:last-child{color:var(--dim);text-align:right}
-
-.ticker{
-  position:relative;
-  z-index:1;
-  overflow:hidden;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:rgba(7,9,11,.72);
-}
-.ticker-track{
-  display:flex;
-  width:max-content;
-  animation:ticker 36s linear infinite;
-}
-.ticker span{
-  display:inline-flex;
-  align-items:center;
-  min-height:44px;
-  padding:0 28px;
-  color:var(--dim);
-  font-size:11px;
-  text-transform:uppercase;
-  border-right:1px solid var(--line);
-}
-.ticker strong{color:var(--cyan);font-weight:500}
 
 /* ---------- SECTIONS ---------- */
 section{position:relative;border-bottom:1px solid var(--line);padding:76px 0}
@@ -499,28 +449,36 @@ section{position:relative;border-bottom:1px solid var(--line);padding:76px 0}
 .identity-mark::before{
   content:"";
   position:absolute;
+  z-index:1;
   width:190px;
   height:190px;
   border:1px solid rgba(111,211,232,.24);
+  box-shadow:
+    0 0 34px 18px rgba(7,9,11,.42),
+    0 0 0 999px rgba(7,9,11,.58),
+    inset 0 0 32px rgba(111,211,232,.08);
   transform:rotate(45deg);
   animation:slow-turn 18s linear infinite;
 }
 .identity-mark::after{
   content:"";
   position:absolute;
+  z-index:2;
   width:250px;
   height:1px;
   background:linear-gradient(90deg,transparent,var(--cyan),transparent);
   animation:mark-scan 4s ease-in-out infinite;
 }
-.identity-mark span{
-  position:relative;
-  z-index:1;
-  font-family:var(--display);
-  font-size:4.5rem;
-  font-weight:700;
-  color:var(--text);
-  text-shadow:0 0 32px rgba(111,211,232,.25);
+.identity-photo{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 42%;
+  filter:grayscale(.7) contrast(1.08) saturate(.8);
+  opacity:.92;
 }
 .identity-metrics{display:grid;grid-template-columns:1fr 1fr}
 .identity-metrics .metric{
@@ -739,7 +697,6 @@ footer{padding:34px 0 52px}
   box-shadow:0 0 18px rgba(111,211,232,.65);
 }
 
-@keyframes blink{50%{opacity:0}}
 @keyframes pulse{50%{opacity:.35;transform:scale(.78)}}
 @keyframes sweep{0%,40%{transform:translateX(-100%)}70%,100%{transform:translateX(100%)}}
 @keyframes panel-scan{0%,42%{transform:translateX(-120%)}66%,100%{transform:translateX(120%)}}
@@ -747,7 +704,6 @@ footer{padding:34px 0 52px}
 @keyframes node-breathe{50%{transform:translate(-50%,-50%) scale(1.35);box-shadow:0 0 34px rgba(111,211,232,.75)}}
 @keyframes slow-turn{to{transform:rotate(405deg)}}
 @keyframes mark-scan{0%,100%{transform:translateY(-88px)}50%{transform:translateY(88px)}}
-@keyframes ticker{to{transform:translateX(-50%)}}
 
 @media(max-width:1040px){
   .hero{grid-template-columns:1fr;padding-top:54px}
@@ -762,9 +718,6 @@ footer{padding:34px 0 52px}
   .nav-status{display:none}
   .hero h1{font-size:3.8rem}
   .hero{padding:52px 0 42px}
-  .telemetry{grid-template-columns:1fr 1fr}
-  .telemetry .metric:nth-child(2){border-right:0}
-  .telemetry .metric:nth-child(1),.telemetry .metric:nth-child(2){border-bottom:1px solid var(--line)}
   .about-grid{grid-template-columns:1fr}
   .identity-panel{position:relative;top:auto;min-height:auto}
   .about-callouts,.cards,.project-grid,.skill-groups{grid-template-columns:1fr}
@@ -778,9 +731,6 @@ footer{padding:34px 0 52px}
   body{font-size:14px}
   .hero h1{font-size:2.85rem}
   .hero-sub,.contact-copy{font-size:15px}
-  .telemetry{grid-template-columns:1fr}
-  .telemetry .metric{border-right:0;border-bottom:1px solid var(--line)}
-  .telemetry .metric:last-child{border-bottom:0}
   .signal-map{height:250px;margin:14px}
   @keyframes vertical-scan{0%{transform:translateY(0)}100%{transform:translateY(250px)}}
   section{padding:58px 0}
@@ -814,32 +764,27 @@ footer{padding:34px 0 52px}
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </div>
-    <div class="nav-status"><span class="status-dot" aria-hidden="true"></span><span>LIVE SIGNAL</span></div>
+    <div class="nav-status"><span class="status-dot" aria-hidden="true"></span><span>LIVE</span></div>
   </div>
 </nav>
 
 <header>
   <div class="wrap hero">
     <div>
-      <div class="eyebrow">AI Engineering / Finance / Applied Systems</div>
-      <h1>Nayan Patel</h1>
-      <p class="hero-sub">Building machine learning systems at the edge of research, software, and venture. Dual degree in Artificial Intelligence at Penn Engineering and Finance at Wharton.</p>
-      <div class="rotator-line">
-        <span>currently tracking</span>
-        <span class="rotator-shell"><span id="hero-rotator">computer vision</span></span>
+      <div class="eyebrow">Penn Engineering | The Wharton School</div>
+      <h1>Nayan <span class="hero-name-accent">Patel</span></h1>
+      <p class="hero-sub">Building ML systems for research, software, and venture. Dual degree student at the University of Pennsylvania.</p>
+
+      <div class="telemetry" aria-label="Profile highlights">
+        <div class="metric" style="--delay:.1s"><div class="k">Current</div><div class="v">ML Engineering @ Relay
+          <br> Investment Analyst @ Cofounders Capital</div></div>
       </div>
+
       <div class="hero-links">
         <a class="btn primary" href="mailto:nayanp@seas.upenn.edu">Email</a>
         <a class="btn" href="https://www.linkedin.com/in/nayanpatel38/" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="https://github.com/nayanp38" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="#projects">View Work</a>
-      </div>
-
-      <div class="telemetry" aria-label="Profile highlights">
-        <div class="metric" style="--delay:.1s"><div class="k">Current</div><div class="v">Relay SWE + Cofounders Analyst</div></div>
-        <div class="metric" style="--delay:.4s"><div class="k">Education</div><div class="v">Penn AI + Wharton Finance '29</div></div>
-        <div class="metric" style="--delay:.7s"><div class="k">Focus</div><div class="v">ML systems / CV / diligence</div></div>
-        <div class="metric" style="--delay:1s"><div class="k">Base</div><div class="v">Philadelphia / Raleigh</div></div>
       </div>
     </div>
 
@@ -857,12 +802,6 @@ footer{padding:34px 0 52px}
       </div>
     </aside>
   </div>
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span><strong>Computer Vision</strong></span><span>Embodied Reasoning</span><span>Venture Diligence</span><span>Asteroid Taxonomy</span><span>Retrieval Systems</span><span>5G Planning</span><span>Portfolio Automation</span>
-      <span><strong>Computer Vision</strong></span><span>Embodied Reasoning</span><span>Venture Diligence</span><span>Asteroid Taxonomy</span><span>Retrieval Systems</span><span>5G Planning</span><span>Portfolio Automation</span>
-    </div>
-  </div>
 </header>
 
 <section id="about">
@@ -870,30 +809,24 @@ footer{padding:34px 0 52px}
     <div class="section-head">
       <div>
         <div class="sec-label">// 01</div>
-        <h2 class="sec-title">Operator Profile</h2>
+        <h2 class="sec-title">Profile</h2>
       </div>
-      <p class="section-note">A technical-builder profile tuned for research depth, product instincts, and investment judgment.</p>
     </div>
     <div class="about-grid">
       <aside class="identity-panel reveal" aria-label="Profile card">
         <div class="identity-top"><span>PROFILE VECTOR</span><span>ACTIVE</span></div>
-        <div class="identity-mark"><span>NP</span></div>
+        <div class="identity-mark"><img class="identity-photo" src="IMG_2031.jpg" alt="Nayan Patel"></div>
         <div class="identity-metrics">
           <div class="metric"><div class="k">Domain</div><div class="v">AI + Finance</div></div>
-          <div class="metric"><div class="k">School</div><div class="v">Penn / Wharton</div></div>
-          <div class="metric"><div class="k">Mode</div><div class="v">Build + Research</div></div>
-          <div class="metric"><div class="k">Signal</div><div class="v">High agency</div></div>
+          <div class="metric"><div class="k">School</div><div class="v">University of Pennsylvania</div></div>
+          <div class="metric"><div class="k">Focus</div><div class="v">ML engineering, mathematics, entrepreneurship</div></div>
+          <div class="metric"><div class="k">Base</div><div class="v">Philadelphia / Raleigh</div></div>
         </div>
       </aside>
       <div class="about-text reveal">
-        <p>I am studying Artificial Intelligence at Penn Engineering and Finance at Wharton, with most of my work sitting where models meet messy operational reality: vision systems, retrieval workflows, scientific datasets, and technical diligence.</p>
-        <p>At Relay, I work on open-world and embodied reasoning models for vision-based products. At Cofounders Capital, I source and evaluate seed-stage B2B software companies, translating technical architecture into market and execution risk.</p>
-        <p>My research background spans Near-Earth Asteroid classification with MIT, satellite-image models for 5G planning at Duke, and RefuGPT, a multilingual assistant for refugee resettlement guidance. I am drawn to roles where rigorous engineering, clear judgment, and fast iteration all matter.</p>
-        <div class="about-callouts">
-          <div class="callout"><div class="k">Build</div><div class="v">ML systems and applied AI products with real users and noisy data.</div></div>
-          <div class="callout"><div class="k">Research</div><div class="v">Scientific modeling, spectral data, computer vision, and evaluation loops.</div></div>
-          <div class="callout"><div class="k">Invest</div><div class="v">Technical diligence, market maps, competitive analysis, and founder signal.</div></div>
-        </div>
+        <p>I'm Nayan, a student at UPenn studying AI and Finance. My work deals with a combination of conducting research, software development, and entrepreneurship via venture capital.</p>
+        <p>At Relay, I work on open-world and embodied reasoning models for vision-based products. At Cofounders Capital, I source and evaluate seed-stage B2B software companies, as well as build AI tools for the investment team.</p>
+        <p>My research background spans Near-Earth Asteroid classification, satellite-image models for 5G planning, and RefuGPT, a multilingual assistant for refugee resettlement guidance.</p>
       </div>
     </div>
   </div>
@@ -906,7 +839,6 @@ footer{padding:34px 0 52px}
         <div class="sec-label">// 02</div>
         <h2 class="sec-title">Experience Timeline</h2>
       </div>
-      <p class="section-note">A path through applied ML, research, nonprofit systems, and early-stage software investing.</p>
     </div>
     <div class="timeline">
       <div class="row reveal">
@@ -938,7 +870,7 @@ footer{padding:34px 0 52px}
             <li>Developed the first supervised ML model to classify Near-Earth Asteroids from spectral and orbital datasets.</li>
             <li>Performed feature engineering and model evaluation on noisy, incomplete scientific data.</li>
             <li>Presented at the American Astronomical Society and IEEE International Conference on Knowledge Graphs.</li>
-            <li>Submitted a first-author paper to the Planetary Science Journal.</li>
+            <li>Patel, N., et al. “Asteroid Classification with Convolutional Neural Networks” Planetary Science Journal (submitted).</li>
           </ul>
         </div>
       </div>
@@ -1158,16 +1090,6 @@ footer{padding:34px 0 52px}
   tickClock();
   setInterval(tickClock,1000);
 
-  var rotator=document.getElementById("hero-rotator");
-  var terms=["computer vision","embodied reasoning","venture diligence","asteroid taxonomy","retrieval systems"];
-  if(rotator && !reduced){
-    var termIndex=0;
-    setInterval(function(){
-      termIndex=(termIndex+1)%terms.length;
-      rotator.textContent=terms[termIndex];
-    },1800);
-  }
-
   var stream=document.getElementById("terminal-stream");
   var defaultStreamLines=[
     ["relay.cv.pipeline","open-world vision models"],
@@ -1221,9 +1143,16 @@ footer{padding:34px 0 52px}
     }
     return hash;
   }
-  function jitter(seed,range){
-    var x=Math.sin(seed*12.9898)*43758.5453;
-    return (x-Math.floor(x)-.5)*range;
+  function seededUnit(seed,attempt,salt){
+    var x=Math.sin((seed+(attempt*97)+(salt*131))*12.9898)*43758.5453;
+    return x-Math.floor(x);
+  }
+  function boxesOverlap(a,b,pad){
+    return !(a.right+pad<b.left || b.right+pad<a.left || a.bottom+pad<b.top || b.bottom+pad<a.top);
+  }
+  function estimateLabelWidth(name,graphWidth){
+    var raw=Math.ceil((name.length*6.25)+10);
+    return Math.min(raw,Math.max(92,Math.floor(graphWidth*.44)));
   }
   function repoMeta(repo){
     var bits=[];
@@ -1259,32 +1188,123 @@ footer{padding:34px 0 52px}
   }
   function repoLayout(repos){
     var total=repos.length;
+    var graphWidth=Math.max(320,Math.round(repoGraph.clientWidth || repoGraph.getBoundingClientRect().width || 500));
     var baseHeight=window.matchMedia("(max-width: 520px)").matches ? 250 : 270;
-    var rows=Math.max(1,Math.ceil(total/2));
-    var height=Math.max(baseHeight,rows*16+64);
-    var top=28;
-    var bottom=height-42;
-    var span=Math.max(1,bottom-top);
+    var height=Math.max(baseHeight,Math.ceil(total/2)*34+76);
+    var maxHeight=Math.max(height,total*40+100);
+    var placed=[];
     var items=[];
-    for(var i=0;i<total;i++){
-      var seed=repoHash(repos[i].name || String(i));
-      var side=i%2===0 ? "left" : "right";
-      var row=Math.floor(i/2);
-      var yPx=rows===1 ? height*.52 : top+(row*(span/Math.max(1,rows-1)));
-      var y=Math.max(9,Math.min(91,(yPx/height)*100));
-      var x=Math.max(27,Math.min(73,50+jitter(seed,42)));
-      var nodeY=Math.max(12,Math.min(88,y+jitter(seed+17,18)));
-      items.push({
+    var margin=14;
+    var footer=28;
+    var nodeRadius=7;
+    var labelHeight=12;
+    var labelGap=11;
+    var collisionPad=8;
+    function candidateFor(repo,index,attempt,currentHeight){
+      var seed=repoHash(repo.name || String(index));
+      var labelWidth=estimateLabelWidth(repo.name || "",graphWidth);
+      var preferRight=seededUnit(seed,attempt,1)>.5;
+      var side=preferRight ? "right" : "left";
+      var minX,maxX;
+      if(side==="right"){
+        minX=margin+nodeRadius;
+        maxX=graphWidth-margin-labelGap-labelWidth;
+      }else{
+        minX=margin+labelGap+labelWidth;
+        maxX=graphWidth-margin-nodeRadius;
+      }
+      if(maxX<=minX){
+        side=side==="right" ? "left" : "right";
+        if(side==="right"){
+          minX=margin+nodeRadius;
+          maxX=graphWidth-margin-labelGap-labelWidth;
+        }else{
+          minX=margin+labelGap+labelWidth;
+          maxX=graphWidth-margin-nodeRadius;
+        }
+      }
+      if(maxX<=minX)return null;
+      var x=minX+(seededUnit(seed,attempt,2)*(maxX-minX));
+      var minY=margin+labelHeight/2;
+      var maxY=currentHeight-footer-labelHeight/2;
+      if(maxY<=minY)return null;
+      var y=minY+(seededUnit(seed,attempt,3)*(maxY-minY));
+      var labelLeft=side==="right" ? x+labelGap : x-labelGap-labelWidth;
+      var labelTop=y-(labelHeight/2);
+      var labelRight=labelLeft+labelWidth;
+      var labelBottom=labelTop+labelHeight;
+      var box={
+        left:Math.min(x-nodeRadius,labelLeft),
+        right:Math.max(x+nodeRadius,labelRight),
+        top:Math.min(y-nodeRadius,labelTop),
+        bottom:Math.max(y+nodeRadius,labelBottom)
+      };
+      return {
         side:side,
-        node:{x:x,y:nodeY},
-        label:{x:side==="left" ? 4 : 96,lineX:side==="left" ? 25 : 75,y:y}
-      });
+        node:{x:x,y:y},
+        label:{
+          left:labelLeft,
+          top:labelTop,
+          width:labelWidth,
+          height:labelHeight,
+          lineX:side==="right" ? labelLeft : labelRight,
+          lineY:y
+        },
+        box:box
+      };
     }
-    return {height:height,items:items};
+    function placeAll(currentHeight,allowFallback){
+      placed=[];
+      items=[];
+      for(var i=0;i<total;i++){
+        var best=null;
+        var bestScore=-Infinity;
+        for(var attempt=0;attempt<420;attempt++){
+          var candidate=candidateFor(repos[i],i,attempt,currentHeight);
+          if(!candidate)continue;
+          var score=1000;
+          var collides=false;
+          for(var j=0;j<placed.length;j++){
+            if(boxesOverlap(candidate.box,placed[j].box,collisionPad)){
+              collides=true;
+              score-=500;
+            }
+            var dx=candidate.node.x-placed[j].node.x;
+            var dy=candidate.node.y-placed[j].node.y;
+            var dist=Math.sqrt((dx*dx)+(dy*dy));
+            score+=Math.min(dist,90);
+            if(dist<34)score-=180;
+          }
+          score-=Math.abs(candidate.node.x-(graphWidth/2))*.15;
+          if(!collides && score>bestScore){
+            best=candidate;
+            bestScore=score;
+            if(attempt>24)break;
+          }else if(allowFallback && score>bestScore){
+            best=candidate;
+            bestScore=score;
+          }
+        }
+        if(!best)return false;
+        placed.push(best);
+        items.push(best);
+      }
+      return true;
+    }
+    var solved=placeAll(height,false);
+    while(!solved && height<maxHeight){
+      height+=56;
+      solved=placeAll(height,false);
+    }
+    if(!solved && total){
+      placeAll(height,true);
+    }
+    return {height:height,width:graphWidth,items:items};
   }
   function drawRepoEdges(layout){
     if(!repoLinks)return;
     repoLinks.replaceChildren();
+    repoLinks.setAttribute("viewBox","0 0 "+layout.width+" "+layout.height);
     if(!layout.items.length)return;
     layout.items.forEach(function(item){
       var line=document.createElementNS("http://www.w3.org/2000/svg","line");
@@ -1292,7 +1312,7 @@ footer{padding:34px 0 52px}
       line.setAttribute("x1",item.node.x);
       line.setAttribute("y1",item.node.y);
       line.setAttribute("x2",item.label.lineX);
-      line.setAttribute("y2",item.label.y);
+      line.setAttribute("y2",item.label.lineY);
       line.style.opacity=String(Math.max(.22,.58-(layout.items.length*.01)));
       repoLinks.appendChild(line);
     });
@@ -1332,8 +1352,8 @@ footer{padding:34px 0 52px}
       node.href=safeGithubUrl(repo,user);
       node.target="_blank";
       node.rel="noopener";
-      node.style.left=item.node.x+"%";
-      node.style.top=item.node.y+"%";
+      node.style.left=item.node.x+"px";
+      node.style.top=item.node.y+"px";
       node.style.animationDelay=((index*.17)%2.2)+"s";
       node.title=repo.name+" / "+repoMeta(repo)+(repo.description ? " - "+repo.description : "");
       node.setAttribute("aria-label","GitHub repository "+repo.name);
@@ -1346,7 +1366,10 @@ footer{padding:34px 0 52px}
       label.rel="noopener";
       label.textContent=repo.name;
       label.dataset.name=repo.name;
-      label.style.top=item.label.y+"%";
+      label.style.left=item.label.left+"px";
+      label.style.top=item.label.top+"px";
+      label.style.width=item.label.width+"px";
+      label.style.height=item.label.height+"px";
       label.title=node.title;
       label.setAttribute("aria-label","GitHub repository "+repo.name);
       repoGraph.appendChild(label);
