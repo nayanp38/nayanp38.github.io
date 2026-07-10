@@ -1,61 +1,485 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Nayan Patel's Portfolio</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-      <link rel="stylesheet" href="css/styles-index.css">
-  </head>
-  <body>
-      <header>
-          <div class="container">
-              <div class="title">
-                <h1>Nayan Patel</h1>
-              </div>
-              <ul>
-                  <li><a href="#bio">Bio</a></li>
-                  <li><a href="#projects">Projects</a></li>
-              </ul>
-          </div>
-      </header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nayan Patel — AI &amp; Finance, University of Pennsylvania</title>
+<meta name="description" content="Nayan Patel. AI B.S.E. (Penn Engineering) + Finance B.S. (Wharton). ML research, software engineering, venture investing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0C0E;
+  --panel:#101316;
+  --line:#1E2429;
+  --line-strong:#2C343B;
+  --text:#E8ECEF;
+  --muted:#8B959E;
+  --dim:#5A646D;
+  --accent:#6FD3E8;      /* cold signal cyan — used sparingly */
+  --accent-dim:#2A5E6B;
+  --placeholder:#F2B84B; /* placeholder / insert markers only */
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --display:'Space Grotesk',sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *,*::before,*::after{animation:none!important;transition:none!important}}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* fine engineering grid over the whole page */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px;
+  opacity:.35;
+  -webkit-mask-image:linear-gradient(to bottom,black,transparent 90%);
+  mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
-      <div class="container">
-          <section id="bio" class="bio">
-              <h2>About Me</h2>
-              <p>
-                Hi, I'm Nayan, a high school student with a passion in innovating technology for social good.
-              </p>
-              <section class="social-icons">
-                    <a href="https://www.instagram.com/nayan.pte1/" class="instagram" target="_blank" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/nayan-patel-0bba322b9/" class="linkedin" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://github.com/nayanp38" class="github" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-              </section>
-          </section>
+/* ---------- NAV ---------- */
+nav{
+  position:sticky;top:0;z-index:10;
+  background:rgba(10,12,14,.88);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;height:56px}
+.nav-name{font-family:var(--mono);font-size:13px;letter-spacing:.08em;color:var(--text)}
+.nav-name span{color:var(--accent)}
+.nav-links{display:flex;gap:22px;flex-wrap:wrap}
+.nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.nav-links a:hover{color:var(--accent);text-decoration:none}
 
-          <section id="projects" class="projects">
-              <h2 class="projects-heading">My Projects</h2>
-              <div class="projects-list">
-                  <div class="project-box">
-                      <img src="img/gopro.png" alt="World Children's Initiative">
-                      <a href="wci.html">Learn More</a>
-                  </div>
-                  <div class="project-box">
-                      <img src="img/astralysis.png" alt="ASTRALYSIS">
-                      <a href="astralysis.html">Learn More</a>
-                  </div>
-                  <div class="project-box">
-                      <img src="img/refugee-assist.jpeg" alt="RefugeeAssist">
-                      <a href="https://www.refugee-assist.com" target="_blank">Learn More</a>
-                  </div>
-              </div>
-          </section>
+/* ---------- HERO ---------- */
+header{border-bottom:1px solid var(--line)}
+.hero{padding:84px 0 64px;position:relative}
+.hero-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
+.hero h1{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(44px,7.5vw,84px);
+  line-height:1.02;letter-spacing:-.02em;
+}
+.hero-sub{
+  margin-top:18px;max-width:640px;
+  font-size:17px;color:var(--muted);
+}
+/* telemetry strip — key facts as data fields */
+.telemetry{
+  margin-top:48px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line-strong);
+  background:var(--panel);
+}
+.telemetry div{padding:16px 18px;border-right:1px solid var(--line)}
+.telemetry div:last-child{border-right:none}
+.telemetry .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.telemetry .v{font-size:14px;color:var(--text)}
+.hero-links{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  padding:11px 20px;border:1px solid var(--line-strong);color:var(--text);
+  transition:border-color .15s,color .15s;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.btn.primary{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- SECTIONS ---------- */
+section{border-bottom:1px solid var(--line);padding:64px 0}
+.sec-label{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:8px;
+}
+.sec-title{
+  font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,34px);
+  letter-spacing:-.01em;margin-bottom:36px;
+}
+
+/* insert markers — highly visible so nothing ships by accident */
+.insert{
+  border:1px dashed var(--placeholder);
+  background:rgba(242,184,75,.06);
+  color:var(--placeholder);
+  font-family:var(--mono);font-size:13px;line-height:1.55;
+  padding:16px 18px;
+}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:start}
+.photo{
+  aspect-ratio:4/5;width:100%;
+  border:1px dashed var(--placeholder);
+  background:
+    linear-gradient(rgba(242,184,75,.05),rgba(242,184,75,.05)),
+    repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(242,184,75,.05) 10px,rgba(242,184,75,.05) 11px);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--mono);font-size:12px;color:var(--placeholder);padding:20px;line-height:1.7;
+}
+/* To use a real photo: delete the .photo div and un-comment the <img> below it in the HTML. */
+.photo-img{aspect-ratio:4/5;width:100%;object-fit:cover;border:1px solid var(--line-strong);filter:grayscale(1) contrast(1.05)}
+.about-text p{color:var(--muted);margin-bottom:14px}
+
+/* ---------- EXPERIENCE / timeline rows ---------- */
+.row{
+  display:grid;grid-template-columns:180px 1fr;gap:28px;
+  padding:26px 0;border-top:1px solid var(--line);
+}
+.row:first-of-type{border-top:1px solid var(--line-strong)}
+.row .when{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.04em;padding-top:3px}
+.row h3{font-family:var(--display);font-size:18px;font-weight:600}
+.row .org{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.06em;margin:4px 0 10px;text-transform:uppercase}
+.row ul{list-style:none}
+.row li{color:var(--muted);padding-left:16px;position:relative;margin-bottom:6px;font-size:14px}
+.row li::before{content:"—";position:absolute;left:0;color:var(--accent-dim)}
+
+/* ---------- PROJECT / research cards ---------- */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{background:var(--panel);padding:24px}
+.card h3{font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:4px}
+.card .tag{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.card p{color:var(--muted);font-size:14px;margin-top:10px}
+.card .stack{margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.04em}
+
+/* ---------- AWARDS ---------- */
+.awards{border:1px solid var(--line)}
+.award{
+  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;
+  padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel);
+}
+.award:last-child{border-bottom:none}
+.award .name{font-size:14px}
+.award .note{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.05em;text-align:right}
+
+/* ---------- SKILLS ---------- */
+.skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.skill-group{background:var(--panel);padding:22px 24px}
+.skill-group .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-size:12px;color:var(--text);border:1px solid var(--line-strong);padding:5px 10px}
+
+/* ---------- CONTACT / FOOTER ---------- */
+.contact-list{display:flex;flex-direction:column;gap:10px;font-family:var(--mono);font-size:14px}
+.contact-list .k{display:inline-block;width:110px;color:var(--dim);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+footer{padding:32px 0 48px}
+footer p{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:860px){
+  .telemetry{grid-template-columns:1fr 1fr}
+  .telemetry div:nth-child(2){border-right:none}
+  .telemetry div:nth-child(1),.telemetry div:nth-child(2){border-bottom:1px solid var(--line)}
+  .about-grid{grid-template-columns:1fr}
+  .photo{max-width:300px}
+  .cards,.skill-groups{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr;gap:6px}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="nav-name">NAYAN<span>_</span>PATEL</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#awards">Awards</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap hero">
+    <div class="hero-eyebrow">AI Engineering × Finance — University of Pennsylvania</div>
+    <h1>Nayan Patel</h1>
+    <p class="hero-sub">Building machine learning systems across research, industry, and early-stage investing. Dual degree in Artificial Intelligence (Penn Engineering) and Finance (Wharton).</p>
+
+    <div class="telemetry">
+      <div><div class="k">Current</div><div class="v">SWE Intern, Relay · Investment Analyst, Cofounders Capital</div></div>
+      <div><div class="k">Education</div><div class="v">AI B.S.E. + Finance B.S., UPenn '29</div></div>
+      <div><div class="k">Focus</div><div class="v">ML systems · Computer vision · Venture diligence</div></div>
+      <div><div class="k">Location</div><div class="v">Philadelphia, PA / Raleigh, NC</div></div>
+    </div>
+
+    <div class="hero-links">
+      <a class="btn primary" href="mailto:nayanp@seas.upenn.edu">Email</a>
+      <a class="btn" href="https://www.linkedin.com/in/nayanpatel38/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/nayanp38" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="#">Resume (PDF)</a><!-- TODO: link your hosted Resume.pdf here -->
+    </div>
+  </div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">// 01</div>
+    <h2 class="sec-title">About</h2>
+    <div class="about-grid">
+      <div>
+        <div class="photo">
+          [ REPLACE WITH PHOTO ]<br><br>
+          Delete this div and un-comment<br>the &lt;img&gt; tag below it in the HTML.<br><br>
+          Recommended: 800×1000px,<br>B&amp;W or muted color.
+        </div>
+        <!--
+        <img class="photo-img" src="photo.jpg" alt="Nayan Patel">
+        -->
       </div>
-  </body>
-  </html>
+      <div class="about-text">
+        <div class="insert">
+          [ INSERT BIO — 2–3 short paragraphs. Suggested structure:<br>
+          ¶1 — Who you are and what you work on now (Relay CV/embodied models, CFC investing).<br>
+          ¶2 — Research background: MIT asteroid classification, Duke 5G work, RefuGPT.<br>
+          ¶3 — What you're looking for: SWE/ML, quant, or technical VC roles. ]
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-label">// 02</div>
+    <h2 class="sec-title">Experience</h2>
+
+    <div class="row">
+      <div class="when">JUN 2026 — PRESENT</div>
+      <div>
+        <h3>Software Engineering Intern</h3>
+        <div class="org">Relay</div>
+        <ul>
+          <li>Building and training open-world and embodied reasoning models for the next generation of vision-based Relay products.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when">MAY 2026 — PRESENT</div>
+      <div>
+        <h3>Summer Investment Analyst</h3>
+        <div class="org">Cofounders Capital</div>
+        <ul>
+          <li>Seed/pre-seed B2B software fund. Deal sourcing, technical diligence, competitive analysis, and market sizing for early-stage ventures.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when">MAR 2024 — DEC 2025</div>
+      <div>
+        <h3>Machine Learning Research</h3>
+        <div class="org">MIT — Advisor: Dr. Francesca DeMeo</div>
+        <ul>
+          <li>Developed the first supervised ML model to classify Near-Earth Asteroids from spectral and orbital datasets.</li>
+          <li>Feature engineering and model evaluation on noisy, incomplete scientific data.</li>
+          <li>Presented at the American Astronomical Society and IEEE International Conference on Knowledge Graphs.</li>
+          <li>First-author paper submitted to the Planetary Science Journal.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when">OCT 2023 — SEP 2025</div>
+      <div>
+        <h3>Founder</h3>
+        <div class="org">Refugee Assist — 501(c)(3)</div>
+        <ul>
+          <li>Designed and deployed RefuGPT, a multilingual AI assistant providing resettlement guidance to refugees nationally.</li>
+          <li>Built NLP pipelines for intent classification, retrieval-augmented generation, and language localization.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when">JUN 2023 — AUG 2023</div>
+      <div>
+        <h3>Machine Learning Research</h3>
+        <div class="org">Duke University — Advisor: Prof. Tingjung Chen</div>
+        <ul>
+          <li>Trained deep learning models on 10,000+ satellite images to identify signal-blocking obstacles in the built environment for 5G network planning.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when">APR 2021 — MAY 2025</div>
+      <div>
+        <h3>Hardware Project Lead</h3>
+        <div class="org">World Children's Initiative</div>
+        <ul>
+          <li>Led a GoPro battery-system redesign enabling extended surgical recordings in Madagascar (patent pending).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESEARCH & PUBLICATIONS ================= -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-label">// 03</div>
+    <h2 class="sec-title">Research &amp; Publications</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="tag">Publication — Submitted</div>
+        <h3>Asteroid Classification with Convolutional Neural Networks</h3>
+        <p>Patel, N., et al. Planetary Science Journal. 1D CNNs on Bus–DeMeo reflectance spectra for Near-Earth Asteroid taxonomy.</p>
+        <div class="stack">PYTORCH · SPECTRAL DATA · CNN</div>
+      </div>
+      <div class="card">
+        <div class="tag">Conference Presentations</div>
+        <h3>AAS &amp; IEEE ICKG</h3>
+        <p>Presented asteroid-classification research at the American Astronomical Society and the IEEE International Conference on Knowledge Graphs.</p>
+        <div class="stack">ML FOR SCIENCE · KNOWLEDGE GRAPHS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label">// 04</div>
+    <h2 class="sec-title">Selected Projects</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="tag">Computer Vision</div>
+        <h3>Analog Gauge Reading Pipeline</h3>
+        <p>Tiered vision pipeline for industrial gauge reading: motion detection → open-vocabulary detection (YOLO-World) → VLM judge → state machine. Benchmarked VLM and classical keypoint approaches.</p>
+        <div class="stack">YOLO-WORLD · VLMs · DINOv2 · DOCKER</div>
+      </div>
+      <div class="card">
+        <div class="tag">NLP / Applied AI</div>
+        <h3>RefuGPT</h3>
+        <p>Multilingual assistant for refugee resettlement guidance. Intent classification, retrieval-augmented generation, and language localization, deployed nationally.</p>
+        <div class="stack">RAG · NLP · MULTILINGUAL</div>
+      </div>
+      <div class="card">
+        <div class="tag">ML for Science</div>
+        <h3>Near-Earth Asteroid Classifier</h3>
+        <p>Supervised classification of NEAs from reflectance spectra and orbital elements; training-data expansion via MITHNEOS and Gaia DR3 integration.</p>
+        <div class="stack">1D CNN · GAIA DR3 · SSL PRETRAINING</div>
+      </div>
+      <div class="card">
+        <div class="tag">Internal Tooling</div>
+        <h3>Portfolio Reporting Automation</h3>
+        <p>Automated financial reporting system for venture portfolio companies built on Google Workspace, Apps Script, and LLM APIs.</p>
+        <div class="stack">APPS SCRIPT · SHEETS · LLM API</div>
+      </div>
+    </div>
+    <div class="insert" style="margin-top:24px">
+      [ OPTIONAL — INSERT 1–2 MORE PROJECTS OR LINK PINNED GITHUB REPOS HERE. Each card: title, one factual sentence, tech stack. ]
+    </div>
+  </div>
+</section>
+
+<!-- ================= LEADERSHIP ================= -->
+<section id="leadership">
+  <div class="wrap">
+    <div class="sec-label">// 05</div>
+    <h2 class="sec-title">Campus Organizations</h2>
+
+    <div class="row">
+      <div class="when">SEP 2025 — PRESENT</div>
+      <div>
+        <h3>Investment Team</h3>
+        <div class="org">Wharton Undergraduate Venture Group (WUVG)</div>
+        <ul>
+          <li>Lead technical due diligence on early-stage AI startups; evaluate product-market fit and algorithmic feasibility.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="when">SEP 2025 — PRESENT</div>
+      <div>
+        <h3>Quantitative Investment Strategies Team</h3>
+        <div class="org">Wharton Investment &amp; Trading Group (WITG)</div>
+        <ul>
+          <li>Selected as a first-semester freshman. Developed and back-tested trading strategies using factor models and historical market data.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AWARDS ================= -->
+<section id="awards">
+  <div class="wrap">
+    <div class="sec-label">// 06</div>
+    <h2 class="sec-title">Awards</h2>
+    <div class="awards">
+      <div class="award"><div class="name">Regeneron Science Talent Search Scholar</div><div class="note">TOP 300 NATIONALLY · 2025</div></div>
+      <div class="award"><div class="name">UN 79th General Assembly Youth Parliament — Innovation Award</div><div class="note">UNITED NATIONS</div></div>
+      <div class="award"><div class="name">Bryan Cameron Impact Scholarship Finalist</div><div class="note">NATIONAL</div></div>
+      <div class="award"><div class="name">Davidson Fellows Scholarship Semifinalist</div><div class="note">NATIONAL</div></div>
+      <div class="award"><div class="name">First Place, NC Science &amp; Engineering Fair</div><div class="note">STATE</div></div>
+      <div class="award"><div class="name">National Merit Finalist · AP Scholar with Distinction · SAT 1590</div><div class="note">ACADEMIC</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label">// 07</div>
+    <h2 class="sec-title">Technical Skills</h2>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <div class="k">Languages</div>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">R</span><span class="chip">Java</span><span class="chip">JavaScript</span><span class="chip">Erlang</span><span class="chip">Elixir</span><span class="chip">OCaml</span><span class="chip">SQL</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="k">ML / Frameworks</div>
+        <div class="chips">
+          <span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">NLP</span><span class="chip">Computer Vision</span><span class="chip">Jupyter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact" style="border-bottom:none">
+  <div class="wrap">
+    <div class="sec-label">// 08</div>
+    <h2 class="sec-title">Contact</h2>
+    <div class="contact-list">
+      <div><span class="k">Email</span><a href="mailto:nayanp@seas.upenn.edu">nayanp@seas.upenn.edu</a></div>
+      <div><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/nayanpatel38/" target="_blank" rel="noopener">linkedin.com/in/nayanpatel38</a></div>
+      <div><span class="k">GitHub</span><a href="https://github.com/nayanp38" target="_blank" rel="noopener">github.com/nayanp38</a></div>
+      <div><span class="k">Phone</span><span style="color:var(--muted)">917.757.6632</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>NAYAN PATEL · PHILADELPHIA / RALEIGH · LAST UPDATED 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
