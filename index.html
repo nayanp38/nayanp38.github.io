@@ -102,6 +102,10 @@
         border: 1.5px solid var(--ink);
         padding: 8px;
         background: var(--paper);
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -webkit-user-select: none;
       }
       .frame .slides {
         position: relative;
@@ -144,8 +148,8 @@
       .frame::after  { border-color: var(--m); transform: translate(1.5px, .5px); }
       .frame .plate  { border-color: var(--y); transform: translate(3px, 1px); }
 
-      /* ---------- hover slideshow: each swap is a short stepped glitch ---------- */
-      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      /* ---------- slideshow: hover (mouse) or tap (touch) swaps the image with a stepped glitch ---------- */
+      @media (prefers-reduced-motion: no-preference) {
         .frame:hover::before,
         .frame.is-glitching::before { animation: plate-c .45s steps(1) both; }
         .frame:hover::after,
@@ -307,8 +311,7 @@
         var frame = document.querySelector('.frame');
         if (!frame) return;
         var slides = Array.prototype.slice.call(frame.querySelectorAll('.slide'));
-        var canHover = window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches;
-        if (slides.length < 2 || !canHover) return;
+        if (slides.length < 2) return;
 
         var GLITCH_MS = 360;  
         var index = 0, settle = null;
@@ -328,9 +331,31 @@
             prev.classList.remove('is-leaving');
           }, GLITCH_MS);
         }
-        frame.addEventListener('mouseenter', function () {
-          show((index + 1) % slides.length);
-        });
+        function advance() { show((index + 1) % slides.length); }
+
+        if (window.PointerEvent) {
+          // Mouse: advance on hover. Touch/pen: advance on tap (pointerup).
+          // Checking pointerType keeps the emulated mouseenter that touch
+          // browsers fire before a tap from causing a double swap.
+          var tapStart = null;
+          frame.addEventListener('pointerenter', function (e) {
+            if (e.pointerType === 'mouse') advance();
+          });
+          frame.addEventListener('pointerdown', function (e) {
+            if (e.pointerType !== 'mouse') tapStart = { x: e.clientX, y: e.clientY };
+          });
+          frame.addEventListener('pointerup', function (e) {
+            if (e.pointerType === 'mouse' || !tapStart) return;
+            var moved = Math.abs(e.clientX - tapStart.x) + Math.abs(e.clientY - tapStart.y);
+            tapStart = null;
+            if (moved < 12) advance(); // ignore scroll gestures that start on the frame
+          });
+          frame.addEventListener('pointercancel', function () { tapStart = null; });
+        } else {
+          // Very old browsers without pointer events: hover if possible, else tap.
+          var canHover = window.matchMedia('(hover: hover)').matches;
+          frame.addEventListener(canHover ? 'mouseenter' : 'click', advance);
+        }
       })();
     </script>
   </body>
