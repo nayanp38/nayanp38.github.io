@@ -92,16 +92,6 @@
       a:hover {
         text-shadow: -1px 0 0 var(--c), 1px 0 0 var(--m);
       }
-      @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-        a:hover { animation: link-plates .4s steps(1) both; }
-      }
-      @keyframes link-plates {
-        0%   { text-shadow: -3px 0 0 var(--c),      3px 0 0 var(--m),   4px 0 0 var(--y); }
-        25%  { text-shadow: -1px 1px 0 var(--c),    2px -1px 0 var(--m), 3px -1px 0 var(--y); }
-        50%  { text-shadow: -2.5px -1px 0 var(--c), 1px 1px 0 var(--m),  2px 1px 0 var(--y); }
-        75%  { text-shadow: -1.5px 0 0 var(--c),    2px 0 0 var(--m),   3px 0 0 var(--y); }
-        100% { text-shadow: -1px 0 0 var(--c),      1px 0 0 var(--m); }
-      }
 
       /* ---------- misregistered box (photo frame) ---------- */
       .frame {
