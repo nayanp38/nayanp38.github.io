@@ -103,11 +103,32 @@
         padding: 8px;
         background: var(--paper);
       }
-      .frame img {
+      .frame .slides {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--ink);
+      }
+      .frame .slide {
+        position: absolute;
+        inset: 0;
         display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        opacity: 0;
+      }
+      .frame .slide.is-active { opacity: 1; z-index: 1; }
+      /* colour band that flashes across the image mid-glitch */
+      .frame .slides::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        mix-blend-mode: multiply;
+        opacity: 0;
       }
       .frame::before,
       .frame::after,
@@ -123,9 +144,44 @@
       .frame::after  { border-color: var(--m); transform: translate(1.5px, .5px); }
       .frame .plate  { border-color: var(--y); transform: translate(3px, 1px); }
 
+      /* ---------- hover slideshow: each swap is a short stepped glitch ---------- */
       @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-        .frame:hover::before { animation: plate-c .45s steps(1) both; }
-        .frame:hover::after  { animation: plate-m .45s steps(1) both; }
+        .frame:hover::before,
+        .frame.is-glitching::before { animation: plate-c .45s steps(1) both; }
+        .frame:hover::after,
+        .frame.is-glitching::after  { animation: plate-m .45s steps(1) both; }
+
+        .frame.is-glitching .slide.is-active  { animation: slide-in .36s steps(1) both; }
+        .frame.is-glitching .slide.is-leaving { opacity: 1; animation: slide-out .36s steps(1) both; }
+        .frame.is-glitching .slides::after    { animation: slide-band .36s steps(1) both; }
+      }
+      /* incoming image tears in as horizontal strips, slightly out of register */
+      @keyframes slide-in {
+        0%   { clip-path: inset(0 0 72% 0);    transform: translateX(-7px); }
+        18%  { clip-path: inset(28% 0 44% 0);  transform: translateX(6px); }
+        36%  { clip-path: inset(0 0 40% 0);    transform: translateX(-3px); }
+        54%  { clip-path: inset(10% 0 10% 0);  transform: translateX(5px); }
+        72%  { clip-path: inset(0 0 15% 0);    transform: translateX(-2px); }
+        88%  { clip-path: inset(0);            transform: translateX(1px); }
+        100% { clip-path: inset(0);            transform: none; }
+      }
+      /* outgoing image loses strips and shoves sideways as it goes */
+      @keyframes slide-out {
+        0%   { clip-path: inset(0);            transform: translateX(0); }
+        18%  { clip-path: inset(0 0 30% 0);    transform: translateX(-5px); }
+        36%  { clip-path: inset(40% 0 0 0);    transform: translateX(4px); }
+        54%  { clip-path: inset(60% 0 20% 0);  transform: translateX(-6px); }
+        72%  { clip-path: inset(85% 0 0 0);    transform: translateX(3px); }
+        100% { clip-path: inset(100% 0 0 0);   transform: none; }
+      }
+      /* cyan / magenta / yellow bands sweep through */
+      @keyframes slide-band {
+        0%   { opacity: 1; background: var(--c); clip-path: inset(8% 0 78% 0);  transform: translateX(-4px); }
+        22%  { opacity: 1; background: var(--m); clip-path: inset(50% 0 30% 0); transform: translateX(5px); }
+        44%  { opacity: 1; background: var(--y); clip-path: inset(30% 0 55% 0); transform: translateX(-3px); }
+        66%  { opacity: 1; background: var(--c); clip-path: inset(70% 0 12% 0); transform: translateX(2px); }
+        84%  { opacity: 1; background: var(--m); clip-path: inset(0 0 92% 0);   transform: translateX(-1px); }
+        100% { opacity: 0; }
       }
       @keyframes plate-c {
         0%   { transform: translate(-4px, -1px); }
@@ -185,7 +241,19 @@
         <div class="links"><a href="mailto:nayanp@engineering.upenn.edu">email</a> / <a target="_blank" rel="noopener" href="https://github.com/nayanp38">github</a> / <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/nayanpatel38/">linkedin</a></div>
       </div>
       <div class="frame">
-        <img src="IMG_2031.jpg" alt="Nayan Patel">
+        <div class="slides">
+          <img class="slide is-active" src="IMG_2031.jpg" alt="Nayan Patel">
+          <img class="slide" src="slides/mountain.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/aurora.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/desert.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/pool.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/dubai.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/iceland.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/paddleboard.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/hallway.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/ski.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="slide" src="slides/springs.jpg" alt="" aria-hidden="true" loading="lazy">
+        </div>
         <span class="plate" aria-hidden="true"></span>
       </div>
     </div>
@@ -233,5 +301,37 @@
     </p>
 
     <p class="outro">Outside of work, I surf, play golf, and watch football (go Panthers!)</p>
+
+    <script>
+      (function () {
+        var frame = document.querySelector('.frame');
+        if (!frame) return;
+        var slides = Array.prototype.slice.call(frame.querySelectorAll('.slide'));
+        var canHover = window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches;
+        if (slides.length < 2 || !canHover) return;
+
+        var GLITCH_MS = 360;  
+        var index = 0, settle = null;
+
+        function show(next) {
+          var prev = slides[index], cur = slides[next];
+          index = next;
+          slides.forEach(function (s) { s.classList.remove('is-active', 'is-leaving'); });
+          prev.classList.add('is-leaving');
+          cur.classList.add('is-active');
+          frame.classList.remove('is-glitching');
+          void frame.offsetWidth; 
+          frame.classList.add('is-glitching');
+          clearTimeout(settle);
+          settle = setTimeout(function () {
+            frame.classList.remove('is-glitching');
+            prev.classList.remove('is-leaving');
+          }, GLITCH_MS);
+        }
+        frame.addEventListener('mouseenter', function () {
+          show((index + 1) % slides.length);
+        });
+      })();
+    </script>
   </body>
 </html>
