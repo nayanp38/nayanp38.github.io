@@ -8,233 +8,143 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,700;0,800;1,500&family=Courier+Prime:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400;1,6..72,500&family=Instrument+Serif&family=JetBrains+Mono:wght@400&display=swap">
 
     <style>
       /* ------------------------------------------------------------
-         Type: Inter Tight (display + body), Courier Prime (links).
-         Colour "plates": links and the photo frame carry a subtle
-         cyan/magenta/yellow misregistration, like offset printing.
+         "Ledger Serif": Ledger set in Newsreader instead of mono,
+         with the name in large Instrument Serif. One quiet column
+         on warm charcoal; only links are amber, titles are italic.
          ------------------------------------------------------------ */
       :root {
-        --paper: #e9e7dc;
-        --ink: #111111;
-        --muted: #555;
-        --rule: #b9b7ab;
-        --c: #00aeef;
-        --m: #ec008c;
-        --y: #ffe500;
+        --bg: #1c1b1a;
+        --bg-subtle: #242322;
+        --text: #e8e2d8;
+        --text-dim: #9a9488;
+        --rule: #34322f;
+        --accent: #d4a054;
+        --accent-bright: #ecc285;
+        --accent-dim: #a37a3b;
+        /* the name's size; the photo is sized to match its two lines */
+        --title: 92px;
       }
 
       * { box-sizing: border-box; }
-      html { background: var(--paper); }
+      html { background: var(--bg); }
 
       body {
-        font-family: "Inter Tight", "Inter", Helvetica, Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.55;
-        color: var(--ink);
-        background: var(--paper);
-        max-width: 640px;
-        margin: 72px auto 96px;
-        padding: 0 24px;
+        font-family: "Newsreader", Georgia, serif;
+        font-optical-sizing: auto;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--bg);
+        max-width: 644px;
+        margin: 0 auto;
+        padding: 72px 24px 96px;
         -webkit-font-smoothing: antialiased;
       }
+
+      ::selection { background: var(--accent); color: var(--bg); }
 
       /* ---------- header ---------- */
       .header {
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         justify-content: space-between;
-        gap: 28px;
-        margin-bottom: 40px;
+        gap: 24px;
+        margin-bottom: 28px;
       }
 
       h1 {
-        font-size: 52px;
-        font-weight: 700;
-        letter-spacing: -0.035em;
-        line-height: 0.98;
-        margin: 0 0 16px 0;
+        font-family: "Instrument Serif", Georgia, serif;
+        font-size: var(--title);
+        font-weight: 400;
+        line-height: .88;
+        letter-spacing: -0.02em;
+        margin: 0 0 22px 0;
       }
 
       .links {
-        font-family: "Courier Prime", "Courier New", Courier, monospace;
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
         font-size: 14px;
-        font-weight: 700;
-        color: var(--muted);
+        letter-spacing: .01em;
+        color: var(--text-dim);
       }
+      .links a { margin-right: 4px; }
 
-      /* ---------- links: clean text, underline printed out of register ---------- */
       a {
-        color: var(--ink);
-        text-decoration: none;
-        padding: 0 3px 3px;
-        margin: 0 -3px;
-        -webkit-box-decoration-break: clone;
-        box-decoration-break: clone;
-        mix-blend-mode: multiply;
-        background-repeat: no-repeat;
-        /* four 1px "plates": ink, then cyan / magenta / yellow slightly off */
-        background-image:
-          linear-gradient(var(--ink), var(--ink)),
-          linear-gradient(var(--c), var(--c)),
-          linear-gradient(var(--m), var(--m)),
-          linear-gradient(var(--y), var(--y));
-        background-size: calc(100% - 6px) 1px;
-        background-position:
-          3px calc(100% - 2px),
-          1px calc(100% - 3px),
-          5px calc(100% - 1px),
-          6px 100%;
+        color: var(--accent);
+        text-decoration: underline;
+        text-decoration-color: transparent;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+        transition: color .15s, text-decoration-color .15s;
       }
-      /* on hover the text itself loses register */
       a:hover {
-        text-shadow: -1px 0 0 var(--c), 1px 0 0 var(--m);
+        color: var(--accent-bright);
+        text-decoration-color: currentColor;
       }
 
-      /* ---------- misregistered box (photo frame) ---------- */
+      /* ---------- photo ---------- */
       .frame {
         position: relative;
         flex: 0 0 auto;
-        width: 150px;
-        height: 150px;
-        border: 1.5px solid var(--ink);
-        padding: 8px;
-        background: var(--paper);
+        /* two lines at line-height .88: same height as the name */
+        width: calc(var(--title) * 1.76);
+        height: calc(var(--title) * 1.76);
+        border-radius: 4px;
+        overflow: hidden;
+        background: var(--bg-subtle);
+        box-shadow: 0 0 0 1px var(--rule);
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
         user-select: none;
         -webkit-user-select: none;
       }
-      .frame .slides {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        background: var(--ink);
-      }
+      .frame .slides { position: relative; width: 100%; height: 100%; }
       .frame .slide {
         position: absolute;
         inset: 0;
-        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
         opacity: 0;
       }
-      .frame .slide.is-active { opacity: 1; z-index: 1; }
-      /* colour band that flashes across the image mid-glitch */
-      .frame .slides::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        mix-blend-mode: multiply;
-        opacity: 0;
-      }
-      .frame::before,
-      .frame::after,
-      .frame .plate {
-        content: "";
-        position: absolute;
-        inset: -1.5px;
-        border: 1.5px solid;
-        pointer-events: none;
-        mix-blend-mode: multiply;
-      }
-      .frame::before { border-color: var(--c); transform: translate(-2px, -1px); }
-      .frame::after  { border-color: var(--m); transform: translate(1.5px, .5px); }
-      .frame .plate  { border-color: var(--y); transform: translate(3px, 1px); }
-
-      /* ---------- slideshow: hover (mouse) or tap (touch) swaps the image with a stepped glitch ---------- */
+      .frame .slide.is-active { opacity: 1; }
       @media (prefers-reduced-motion: no-preference) {
-        .frame:hover::before,
-        .frame.is-glitching::before { animation: plate-c .45s steps(1) both; }
-        .frame:hover::after,
-        .frame.is-glitching::after  { animation: plate-m .45s steps(1) both; }
-
-        .frame.is-glitching .slide.is-active  { animation: slide-in .36s steps(1) both; }
-        .frame.is-glitching .slide.is-leaving { opacity: 1; animation: slide-out .36s steps(1) both; }
-        .frame.is-glitching .slides::after    { animation: slide-band .36s steps(1) both; }
-      }
-      /* incoming image tears in as horizontal strips, slightly out of register */
-      @keyframes slide-in {
-        0%   { clip-path: inset(0 0 72% 0);    transform: translateX(-7px); }
-        18%  { clip-path: inset(28% 0 44% 0);  transform: translateX(6px); }
-        36%  { clip-path: inset(0 0 40% 0);    transform: translateX(-3px); }
-        54%  { clip-path: inset(10% 0 10% 0);  transform: translateX(5px); }
-        72%  { clip-path: inset(0 0 15% 0);    transform: translateX(-2px); }
-        88%  { clip-path: inset(0);            transform: translateX(1px); }
-        100% { clip-path: inset(0);            transform: none; }
-      }
-      /* outgoing image loses strips and shoves sideways as it goes */
-      @keyframes slide-out {
-        0%   { clip-path: inset(0);            transform: translateX(0); }
-        18%  { clip-path: inset(0 0 30% 0);    transform: translateX(-5px); }
-        36%  { clip-path: inset(40% 0 0 0);    transform: translateX(4px); }
-        54%  { clip-path: inset(60% 0 20% 0);  transform: translateX(-6px); }
-        72%  { clip-path: inset(85% 0 0 0);    transform: translateX(3px); }
-        100% { clip-path: inset(100% 0 0 0);   transform: none; }
-      }
-      /* cyan / magenta / yellow bands sweep through */
-      @keyframes slide-band {
-        0%   { opacity: 1; background: var(--c); clip-path: inset(8% 0 78% 0);  transform: translateX(-4px); }
-        22%  { opacity: 1; background: var(--m); clip-path: inset(50% 0 30% 0); transform: translateX(5px); }
-        44%  { opacity: 1; background: var(--y); clip-path: inset(30% 0 55% 0); transform: translateX(-3px); }
-        66%  { opacity: 1; background: var(--c); clip-path: inset(70% 0 12% 0); transform: translateX(2px); }
-        84%  { opacity: 1; background: var(--m); clip-path: inset(0 0 92% 0);   transform: translateX(-1px); }
-        100% { opacity: 0; }
-      }
-      @keyframes plate-c {
-        0%   { transform: translate(-4px, -1px); }
-        25%  { transform: translate(-1px, -2.5px); }
-        50%  { transform: translate(-3.5px, .5px); }
-        75%  { transform: translate(-2.5px, -1.5px); }
-        100% { transform: translate(-2px, -1px); }
-      }
-      @keyframes plate-m {
-        0%   { transform: translate(3.5px, 1px); }
-        25%  { transform: translate(1px, 2px); }
-        50%  { transform: translate(3px, -.5px); }
-        75%  { transform: translate(2px, 1.5px); }
-        100% { transform: translate(1.5px, .5px); }
+        .frame .slide { transition: opacity .25s ease; }
       }
 
-      /* ---------- sections: italic headers ---------- */
+      /* ---------- body ---------- */
+      p { margin: 0 0 14px 0; }
+
+      .intro { margin-bottom: 0; }
+
       h2 {
-        font-size: 19px;
+        font-size: inherit;
         font-weight: 500;
         font-style: italic;
-        letter-spacing: -0.01em;
-        line-height: 1.2;
-        margin: 40px 0 12px 0;
+        color: var(--text);
+        margin: 0 0 12px 0;
       }
 
-      p { margin: 0 0 10px 0; }
-      .project { margin: 0 0 9px 0; }
+      section { padding-top: 40px; }
 
-      .intro {
-        font-size: 18px;
-        font-weight: 500;
-        letter-spacing: -0.01em;
-        margin: 0 0 6px 0;
-      }
+      .project { margin: 0 0 12px 0; }
+      .project:last-child { margin-bottom: 0; }
 
       .outro {
-        margin-top: 44px;
-        padding-top: 18px;
-        border-top: 1px solid var(--rule);
-        color: var(--muted);
-        font-size: 15px;
+        margin: 40px 0 0 0;
+        color: var(--text-dim);
+        font-style: italic;
+        font-weight: 300;
       }
 
-      @media (max-width: 640px) {
-        body { margin: 36px auto 64px; }
-        .header { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
-        h1 { font-size: 42px; }
-        .frame { width: 132px; height: 132px; }
+      @media (max-width: 560px) {
+        body { padding: 48px 16px 64px; font-size: 17px; }
+        :root { --title: 68px; }
       }
     </style>
   </head>
@@ -258,51 +168,62 @@
           <img class="slide" src="slides/ski.jpg" alt="" aria-hidden="true" loading="lazy">
           <img class="slide" src="slides/springs.jpg" alt="" aria-hidden="true" loading="lazy">
         </div>
-        <span class="plate" aria-hidden="true"></span>
       </div>
     </div>
 
-    <p class="intro">I'm Nayan, a student at Penn studying AI and Statistics.</p>
+    <p class="intro">I'm Nayan, a student at Penn studying AI and Statistics. I'm interested in LLM inference optimization and interpretability.</p>
 
-    <h2>I'm currently</h2>
+    <section>
+      <h2>I'm currently</h2>
 
-    <p class="project">
-      Developing learned compression for Rubin Observatory transient alerts with Dr. Mathew Madhavacheril at Penn.
-    </p>
+      <p class="project">
+        Developing learned compression for Rubin Observatory transient alerts with Dr. Mathew Madhavacheril at Penn.
+      </p>
 
-    <p class="project">
-      Writing fast inference kernels for open-source models using cuTile.
-    </p>
+      <p class="project">
+        Writing fast inference kernels for open-source models using cuTile.
+      </p>
 
-    <p class="project">
-      Extending my prior asteroid research with self-supervised transformer pretraining.
-    </p>
+      <p class="project">
+        Extending my prior asteroid research with self-supervised transformer pretraining.
+      </p>
+    </section>
 
-    <h2>I've worked on</h2>
+    <section>
+      <h2>I've worked on</h2>
 
-    <p class="project">
-      Vision-language models and GPU kernels at <a target="_blank" rel="noopener" href="https://www.relaypro.com/">Relay</a>.
-    </p>
+      <p class="project">
+        Vision-language models and GPU kernels at <a target="_blank" rel="noopener" href="https://www.relaypro.com/">Relay</a>.
+      </p>
 
-    <p class="project">
-      Evaluating seed-stage B2B software at <a target="_blank" rel="noopener" href="https://cofounderscapital.com/">Cofounders Capital</a>.
-    </p>
+      <p class="project">
+        Evaluating seed-stage B2B software at <a target="_blank" rel="noopener" href="https://cofounderscapital.com/">Cofounders Capital</a>.
+      </p>
 
-    <p class="project">
-      The first CNN to accurately <a target="_blank" rel="noopener" href="asteroid-classification.pdf">classify Near-Earth Asteroids</a> into the Bus-DeMeo taxonomy, first-author with MIT, presented at <a target="_blank" rel="noopener" href="https://ui.adsabs.harvard.edu/abs/2025AAS...24535608P/abstract">AAS 245</a>.
-    </p>
+      <p class="project">
+        The first CNN to accurately <a target="_blank" rel="noopener" href="asteroid-classification.pdf">classify Near-Earth Asteroids</a> into the Bus-DeMeo taxonomy, presented at <a target="_blank" rel="noopener" href="https://ui.adsabs.harvard.edu/abs/2025AAS...24535608P/abstract">AAS 245</a>.
+      </p>
 
-    <p class="project">
-      A multilingual RAG assistant guiding refugees through resettlement, built for my nonprofit <a target="_blank" rel="noopener" href="https://www.refugee-assist.com/">Refugee Assist</a>.
-    </p>
+      <p class="project">
+        A multilingual RAG assistant guiding refugees through resettlement, built for my nonprofit <a target="_blank" rel="noopener" href="https://www.refugee-assist.com/">Refugee Assist</a>.
+      </p>
 
-    <p class="project">
-      U-Nets to replace ray-tracing simulation for <a target="_blank" rel="noopener" href="https://github.com/functions-lab/geo2sigmap">5G site planning</a> at Duke.
-    </p>
+      <p class="project">
+        U-Nets to replace ray-tracing simulation for <a target="_blank" rel="noopener" href="https://github.com/functions-lab/geo2sigmap">5G site planning</a> at Duke.
+      </p>
 
-    <p class="project">
-      Measuring the electrical properties of doped polymers for AI-optimized chips at NC State.
-    </p>
+      <p class="project">
+        Measuring the electrical properties of doped polymers for AI-optimized chips at NC State.
+      </p>
+    </section>
+
+    <section>
+      <h2>Coming soon</h2>
+
+      <p class="project">
+        This summer, I'll be joining <a target="_blank" rel="noopener" href="https://www.nvidia.com/en-us/solutions/ai/agent-safety/">NVIDIA</a> as a Research Engineer Intern working on AI agent security.
+      </p>
+    </section>
 
     <p class="outro">Outside of work, I surf, play golf, and watch football (go Panthers!)</p>
 
@@ -313,30 +234,15 @@
         var slides = Array.prototype.slice.call(frame.querySelectorAll('.slide'));
         if (slides.length < 2) return;
 
-        var GLITCH_MS = 360;  
-        var index = 0, settle = null;
-
-        function show(next) {
-          var prev = slides[index], cur = slides[next];
-          index = next;
-          slides.forEach(function (s) { s.classList.remove('is-active', 'is-leaving'); });
-          prev.classList.add('is-leaving');
-          cur.classList.add('is-active');
-          frame.classList.remove('is-glitching');
-          void frame.offsetWidth; 
-          frame.classList.add('is-glitching');
-          clearTimeout(settle);
-          settle = setTimeout(function () {
-            frame.classList.remove('is-glitching');
-            prev.classList.remove('is-leaving');
-          }, GLITCH_MS);
+        var index = 0;
+        function advance() {
+          slides[index].classList.remove('is-active');
+          index = (index + 1) % slides.length;
+          slides[index].classList.add('is-active');
         }
-        function advance() { show((index + 1) % slides.length); }
 
         if (window.PointerEvent) {
-          // Mouse: advance on hover. Touch/pen: advance on tap (pointerup).
-          // Checking pointerType keeps the emulated mouseenter that touch
-          // browsers fire before a tap from causing a double swap.
+          // Mouse: advance on hover. Touch/pen: advance on tap, ignoring scrolls.
           var tapStart = null;
           frame.addEventListener('pointerenter', function (e) {
             if (e.pointerType === 'mouse') advance();
@@ -348,11 +254,10 @@
             if (e.pointerType === 'mouse' || !tapStart) return;
             var moved = Math.abs(e.clientX - tapStart.x) + Math.abs(e.clientY - tapStart.y);
             tapStart = null;
-            if (moved < 12) advance(); // ignore scroll gestures that start on the frame
+            if (moved < 12) advance();
           });
           frame.addEventListener('pointercancel', function () { tapStart = null; });
         } else {
-          // Very old browsers without pointer events: hover if possible, else tap.
           var canHover = window.matchMedia('(hover: hover)').matches;
           frame.addEventListener(canHover ? 'mouseenter' : 'click', advance);
         }
